@@ -9,9 +9,9 @@ spring:
     pool:
       enabled: true
       max-size: 200
-      initial-size: 10
+      initial-size: 50
 
 logging:
   level:
     root: INFO
-    org.springframework.r2dbc: DEBUG
+#    org.springframework.r2dbc: DEBUG

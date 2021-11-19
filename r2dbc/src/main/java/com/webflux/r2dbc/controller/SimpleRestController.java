@@ -1,6 +1,6 @@
 package com.webflux.r2dbc.controller;
 
-import com.webflux.r2dbc.model.Order;
+import com.webflux.r2dbc.models.Order;
 import com.webflux.r2dbc.repository.ReactiveOrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping(value = "order")
 @RequiredArgsConstructor
 @Slf4j
-public class SimpleController {
+public class SimpleRestController {
 
   private final ReactiveOrderRepository reactiveOrderRepository;
 
@@ -29,8 +29,7 @@ public class SimpleController {
   @PostMapping
   public Mono<Order> createOrder(@RequestBody Order order) {
     return reactiveOrderRepository
-        .saveOrder(order.getOrderId(), order.getProductId(), order.getAmount())
-        .doOnSuccess(__ -> log.info("order saved : {}", order))
+        .saveUser(order.getOrderId(), order.getProductId(), order.getAmount())
         .thenReturn(order);
   }
 }
