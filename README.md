@@ -1,6 +1,6 @@
 # JDBC vs R2DBC
 
-A POC to compare the performance between JDBC and R2DBC
+A POC to compare the performance between JDBC and R2DBC in a reactive web application
 
 ## Problem Statement
 
