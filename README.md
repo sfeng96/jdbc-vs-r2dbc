@@ -50,11 +50,11 @@ example Order object:
 
 ## Key Results and Conclusion
 
-|                               | Throughput | max # of threads| CPU usage| Error |
-|-------------------------------|------------|-----------------|----------|-------|
-| Webflux + R2DBC                | 1098.0/sec | 31              | 20%      | 0     |
-| Webflux + JDBC (Elastic)       | 734.0/sec  | 1029            | 10%      | 0     |
-| Webflux + JDBC (BoundedElastic)| 723.3/sec  | 107             | 10%      | 0     |
+|                               | Throughput     | max # of threads| CPU usage| Error |
+|-------------------------------|----------------|-----------------|----------|-------|
+| Webflux + R2DBC                | **1098.0/sec** | **31**          | **20%**  | 0     |
+| Webflux + JDBC (Elastic)       | 734.0/sec      | 1029            | 10%      | 0     |
+| Webflux + JDBC (BoundedElastic)| 723.3/sec      | 107             | 10%      | 0     |
 
 * With a very small number of threads, pure reactive solution (Webflux + R2DBC) gave the highest throughput and 
   memory usage was also kept at a low level
