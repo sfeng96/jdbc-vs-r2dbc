@@ -34,7 +34,7 @@ example Order object:
   "amount": 4.5678
 }
 ```
-
+PRIMARY KEY (ORDER_ID,PRODUCT_ID)
 ### Test Setup
 
 1. JMeter and VisualVM running in GUI mode
