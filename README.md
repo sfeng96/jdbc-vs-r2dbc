@@ -25,16 +25,21 @@ So I can decide which approach gives the best performance and should be the way 
 The workflow is simple, a REST endpoint takes a POST request with a JSON body which maps to an Order object and get
 saved into the database.
 
+|Field      |Type           |Null|Key|
+|-----------|---------------|----|---|
+|ORDER_ID   |VARCHAR(50)    |NO  |PRI|
+|PRODUCT_ID |VARCHAR(50)    |NO  |PRI|
+|AMOUNT     |DECIMAL(6,2)   |YES |   |
+
 example Order object:
 
 ```json
 {
-  "orderId": 2,
-  "productId": 7,
-  "amount": 4.5678
+  "orderId": 1,
+  "productId": 2,
+  "amount": 2.03
 }
 ```
-PRIMARY KEY (ORDER_ID,PRODUCT_ID)
 ### Test Setup
 
 1. JMeter and VisualVM running in GUI mode
