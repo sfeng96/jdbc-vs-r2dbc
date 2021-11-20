@@ -1,2 +1,67 @@
-# jdbc-vs-r2dbc
-Performance testing, Webflux + JDBC vs Webflux + R2DBC
+# JDBC vs R2DBC
+
+A POC to compare the performance between JDBC and R2DBC
+
+## Problem Statement
+
+Given a non-blocking web application build with Spring Webflux that takes a POST request and saves the body object into
+a mysql database table,
+
+I want to compare the performance between implementing the persistence layer with JDBC and R2DBC
+
+So I can decide which approach gives the best performance and should be the way forward
+
+## Experiment Setup
+
+### Environment
+
+1. Test Machine: 2020 Macbook Pro, 2.3 GHz Quad-Core Intel I7, 8 processors, 32 GB Memory
+2. Test Tools: JMeter and VisualVM
+3. Application running locally from IntelliJ, a MySQL database running in docker
+
+### Application Setup
+
+The workflow is simple, a REST endpoint takes a POST request with a JSON body which maps to an Order object and get
+saved into the database.
+
+example Order object:
+
+```json
+{
+  "orderId": 2,
+  "productId": 7,
+  "amount": 4.5678
+}
+```
+
+### Test Setup
+
+1. JMeter and VisualVM running in GUI mode
+2. JMeter test setup:
+    * number of threads: 1000
+    * ramp-up time: 20s
+    * running in infinite loop, continue for 6 minutes
+
+## Result
+
+|                         | Throughput| max # of threads| Errors|
+|-------------------------|-----------|-----------------|-------|
+| Webflux + R2DBC         | 1098.0/sec| 31              | 0     |
+| Webflux + JDBC (Elastic)| 734.0/sec | 1029            | 0     |
+| Webflux + JDBC (Elastic)| 723.3/sec | 107             | 0     |
+
+### JMeter Summary
+R2DBC:
+![r2dbc](./perf/r2dbc/jmeter-result.png)
+JDBC + Elastic Pool:
+![jdbc + elastic pool](./perf/jdbc+elastic/jmeter-result.png)
+JDBC + BoundedElastic Pool:
+![jdbc + bounded elastic pool](./perf/jdbc+bounded-elastic/jmeter-result.png)
+
+### VisualVM Monitor
+R2DBC:
+![r2dbc](./perf/r2dbc/visualvm-monitor.png)
+JDBC + Elastic Pool:
+![jdbc + elastic pool](./perf/jdbc+elastic/visualvm-monitor.png)
+JDBC + BoundedElastic Pool:
+![jdbc + bounded elastic pool](./perf/jdbc+bounded-elastic/visualvm-monitor.png)
