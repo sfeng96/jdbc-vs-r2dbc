@@ -4,8 +4,8 @@ A POC to compare the performance between JDBC and R2DBC in a reactive web applic
 
 ## Problem Statement
 
-Given a non-blocking web application build with Spring Webflux that takes a POST request and saves the body object into
-a mysql database table,
+Given a non-blocking web application build with Spring Webflux that takes a POST request and saves the body 
+object into a mysql database table
 
 I want to compare the performance between implementing the persistence layer with JDBC and R2DBC
 
