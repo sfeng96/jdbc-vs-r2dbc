@@ -18,6 +18,7 @@ So I can decide which approach gives the best performance and should be the way 
 1. Test Machine: 2020 Macbook Pro, 2.3 GHz Quad-Core Intel I7, 8 processors, 32 GB Memory
 2. Test Tools: JMeter and VisualVM
 3. Application running locally from IntelliJ, a MySQL database running in docker
+4. We use pooled database connection, min-idle is 50 and max is 200
 
 ### Application Setup
 
@@ -42,14 +43,19 @@ example Order object:
     * ramp-up time: 20s
     * running in infinite loop, continue for 6 minutes
 
-## Result
+## Key Results and Conclusion
 
-|                         | Throughput| max # of threads| Errors|
-|-------------------------|-----------|-----------------|-------|
-| Webflux + R2DBC         | 1098.0/sec| 31              | 0     |
-| Webflux + JDBC (Elastic)| 734.0/sec | 1029            | 0     |
-| Webflux + JDBC (Elastic)| 723.3/sec | 107             | 0     |
+|                               | Throughput | max # of threads| CPU usage| Error |
+|-------------------------------|------------|-----------------|----------|-------|
+| Webflux + R2DBC                | 1098.0/sec | 31              | 20%      | 0     |
+| Webflux + JDBC (Elastic)       | 734.0/sec  | 1029            | 10%      | 0     |
+| Webflux + JDBC (BoundedElastic)| 723.3/sec  | 107             | 10%      | 0     |
 
+* With a very small number of threads, pure reactive solution (Webflux + R2DBC) gave the highest throughput and 
+  memory usage was also kept at a low level
+
+## Full Results and Images
+All evidence are in the *perf* repo
 ### JMeter Summary
 R2DBC:
 ![r2dbc](./perf/r2dbc/jmeter-result.png)
