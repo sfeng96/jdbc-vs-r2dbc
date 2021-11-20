@@ -18,7 +18,7 @@ So I can decide which approach gives the best performance and should be the way 
 1. Test Machine: 2020 Macbook Pro, 2.3 GHz Quad-Core Intel I7, 8 processors, 32 GB Memory
 2. Test Tools: JMeter and VisualVM
 3. Application running locally from IntelliJ, a MySQL database running in docker
-4. We use pooled database connection, min-idle is 50 and max is 200
+4. Database connection pool: min-idle is 50 and max is 200
 
 ### Application Setup
 
