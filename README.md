@@ -1,14 +1,17 @@
-# JDBC vs R2DBC
+# Simple REST CURD application perf test
+This project aims to compare the performance of simple REST CURD(SQL database) applications built with major web 
+frameworks
 
-A POC to compare the performance between JDBC and R2DBC in a web application
+ - [x] Spring Webflux + R2DBC
+ - [x] Spring Webflux + JDBC (Elastic Thread Pool and BoundedElastic Thread Pool)
+ - [x] Spring Boot + JDBC
+ - [ ] Vert.x
 
 ## Problem Statement
 
-Given a web application build with Spring Boot or Spring Webflux that takes a POST request and saves the body 
-object into a mysql database table
+Given a web application that takes a POST request and saves the json body object into a MySQL database table
 
-I want to compare the performance between different combinations (*Spring MVC + JDBC* vs *Spring Webflux + JDBC* vs 
-*Spring Webflux + R2DBC*)
+I want to compare the performance between different implementations
 
 So I can decide which approach gives the best performance and should be the way forward
 
@@ -19,7 +22,14 @@ So I can decide which approach gives the best performance and should be the way 
 1. Test Machine: 2020 Macbook Pro, 2.3 GHz Quad-Core Intel I7, 8 processors, 32 GB Memory
 2. Test Tools: JMeter and VisualVM
 3. Application running locally from IntelliJ, a MySQL database running in docker
-4. Database connection pool: min-idle is 50 and max is 200
+4. Database connection pool: initial size is 50 and max is 200
+
+### Test Setup
+1. JMeter and VisualVM both running in GUI mode
+2. JMeter test setup:
+    * number of threads: 1000
+    * ramp-up time: 20s
+    * running in infinite loop, continue for 6 minutes
 
 ### Application Setup
 
@@ -41,13 +51,6 @@ example Order object:
   "amount": 2.03
 }
 ```
-### Test Setup
-
-1. JMeter and VisualVM running in GUI mode
-2. JMeter test setup:
-    * number of threads: 1000
-    * ramp-up time: 20s
-    * running in infinite loop, continue for 6 minutes
 
 ## Key Results and Conclusion
 
