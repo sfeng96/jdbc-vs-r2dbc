@@ -1,4 +1,5 @@
 SET sql_mode = '';
+SET GLOBAL max_connections = 5000;
 
 CREATE TABLE orders
 (

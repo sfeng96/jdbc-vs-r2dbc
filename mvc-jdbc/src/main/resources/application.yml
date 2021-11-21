@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+#    org.springframework.jdbc: DEBUG
+
+db:
+  driver: 'org.mariadb.jdbc.Driver'
+  url: 'jdbc:mysql://localhost:3306/test'
+  username: user
+  password: password
+  pool:
+    min:
+      idle: 50
+    max:
+      size: 200
+
