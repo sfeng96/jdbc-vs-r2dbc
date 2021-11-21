@@ -1,13 +1,14 @@
 # JDBC vs R2DBC
 
-A POC to compare the performance between JDBC and R2DBC in a reactive web application
+A POC to compare the performance between JDBC and R2DBC in a web application
 
 ## Problem Statement
 
-Given a non-blocking web application build with Spring Webflux that takes a POST request and saves the body 
+Given a web application build with Spring Boot or Spring Webflux that takes a POST request and saves the body 
 object into a mysql database table
 
-I want to compare the performance between implementing the persistence layer with JDBC and R2DBC
+I want to compare the performance between different combinations (*Spring MVC + JDBC* vs *Spring Webflux + JDBC* vs 
+*Spring Webflux + R2DBC*)
 
 So I can decide which approach gives the best performance and should be the way forward
 
@@ -50,11 +51,12 @@ example Order object:
 
 ## Key Results and Conclusion
 
-|                               | Throughput     | max # of threads| CPU usage| Error |
-|-------------------------------|----------------|-----------------|----------|-------|
-| Webflux + R2DBC                | **1098.0/sec** | **31**          | **20%**  | 0     |
-| Webflux + JDBC (Elastic)       | 734.0/sec      | 1029            | 10%      | 0     |
-| Webflux + JDBC (BoundedElastic)| 723.3/sec      | 107             | 10%      | 0     |
+|                               | Throughput     | max # of threads| CPU usage (approx)| Error |
+|-------------------------------|----------------|-----------------|-------------------|-------|
+| Webflux + R2DBC                | **1098.0/sec** | **31**          | **20%**           | 0     |
+| Webflux + JDBC (Elastic)       | 734.0/sec      | 1029            | 10%               | 0     |
+| Webflux + JDBC (BoundedElastic)| 723.3/sec      | 107             | 10%               | 0     |
+| MVC + JDBC                    | 693.2/sec      | 221             | 10%               | 0     | 
 
 * With a very small number of threads, pure reactive solution (Webflux + R2DBC) gave the highest throughput and 
   memory usage was also kept at a low level
@@ -62,17 +64,21 @@ example Order object:
 ## Full Results and Images
 All evidence are in the *perf* repo
 ### JMeter Summary
-R2DBC:
-![r2dbc](./perf/r2dbc/jmeter-result.png)
-JDBC + Elastic Pool:
-![jdbc + elastic pool](./perf/jdbc+elastic/jmeter-result.png)
-JDBC + BoundedElastic Pool:
-![jdbc + bounded elastic pool](./perf/jdbc+bounded-elastic/jmeter-result.png)
+Webflux + R2DBC:
+![webflux + r2dbc](./perf/r2dbc/jmeter-result.png)
+ Webflux + JDBC + Elastic Pool:
+![webflux + jdbc + elastic pool](./perf/jdbc+elastic/jmeter-result.png)
+Webflux + JDBC + BoundedElastic Pool:
+![webflux + jdbc + bounded elastic pool](./perf/jdbc+bounded-elastic/jmeter-result.png)
+MVC + JDBC
+![mvc + jdbc](./perf/mvc-jdbc/jmeter-result.png)
 
 ### VisualVM Monitor
-R2DBC:
+Webflux + R2DBC:
 ![r2dbc](./perf/r2dbc/visualvm-monitor.png)
-JDBC + Elastic Pool:
+Webflux + JDBC + Elastic Pool:
 ![jdbc + elastic pool](./perf/jdbc+elastic/visualvm-monitor.png)
-JDBC + BoundedElastic Pool:
+Webflux + JDBC + BoundedElastic Pool:
 ![jdbc + bounded elastic pool](./perf/jdbc+bounded-elastic/visualvm-monitor.png)
+MVC + JDBC
+![mvc + jdbc](./perf/mvc-jdbc/visualvm-monitor.png)
