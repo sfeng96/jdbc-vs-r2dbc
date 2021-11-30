@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public interface ReactiveOrderRepository extends ReactiveCrudRepository<Order, String> {
 
   @Query("INSERT INTO orders (order_id, product_id, amount) VALUES (:1,:2,:3)")
-  Mono<Void> saveUser(String orderId, String productId, BigDecimal amount);
+  Mono<Void> saveOrder(String orderId, String productId, BigDecimal amount);
 
   Flux<Order> findOrdersByOrderIdAndProductId(String orderId, String productId);
 }

@@ -34,7 +34,6 @@ public class OrdersDao extends BaseDao{
         super(dataSource, queryConfig);
     }
 
-    @Transactional
     public void save(Order order) {
         if (order != null) {
             SqlParameterSource namedParameter = getMapSqlParameterSource(order);
