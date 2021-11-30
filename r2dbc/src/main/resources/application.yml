@@ -1,17 +1,15 @@
 server:
   port: 8080
 
-spring:
-  r2dbc:
-    url: r2dbc:mariadb://localhost:3306/test
-    username: user
-    password: password
-    pool:
-      enabled: true
-      max-size: 200
-      initial-size: 50
+db:
+  url: r2dbc:pool:mariadb://localhost:3306/test
+  username: user
+  password: password
+  pool:
+    enabled: true
+    max-size: 200
+    initial-size: 50
 
 logging:
   level:
     root: INFO
-#    org.springframework.r2dbc: DEBUG
