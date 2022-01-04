@@ -8,8 +8,8 @@ spring:
     password: password
     pool:
       enabled: true
-      max-size: 200
-      initial-size: 50
+      max-size: 50
+      initial-size: 10
 
 logging:
   level:
