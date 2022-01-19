@@ -8,10 +8,19 @@ spring:
     password: password
     pool:
       enabled: true
-      max-size: 50
-      initial-size: 10
+      max-size: 200
+      initial-size: 50
+      max-acquire-time: 5s
+      max-life-time: 2h
+      max-create-connection-time: 5s
+      max-idle-time: 10m
+    properties:
+      autoCommit: false
 
 logging:
   level:
     root: INFO
 #    org.springframework.r2dbc: DEBUG
+#    io.r2dbc.pool: DEBUG
+#    org.mariadb.r2dbc: DEBUG
+
